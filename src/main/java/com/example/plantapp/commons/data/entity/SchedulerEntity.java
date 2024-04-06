@@ -11,21 +11,19 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "plant_type")
-public class PlantTypeEntity {
+@Table(name = "scheduler")
+public class SchedulerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String image;
-    @Column(length = 1000)
-    private String description;
+
+    @ManyToOne(targetEntity = PlantEntity.class)
+    @JoinColumn(name = "plant_type_id")
+    private PlantTypeEntity plantType;
+
+    @OneToMany(mappedBy = "scheduler")
+    private List<ReminderScheduler> reminders;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "plantType")
-    private List<PlantEntity> plants;
-
-    @OneToMany(mappedBy = "plantType")
-    private List<InstructionCareEntity> instructionCares;
 }

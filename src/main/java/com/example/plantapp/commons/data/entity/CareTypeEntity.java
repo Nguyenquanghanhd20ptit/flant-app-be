@@ -6,26 +6,18 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "plant_type")
-public class PlantTypeEntity {
+@Table(name = "care_type")
+public class CareTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String image;
-    @Column(length = 1000)
+    @Column(length = 1020)
     private String description;
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-    @OneToMany(mappedBy = "plantType")
-    private List<PlantEntity> plants;
-
-    @OneToMany(mappedBy = "plantType")
-    private List<InstructionCareEntity> instructionCares;
 }

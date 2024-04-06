@@ -6,26 +6,25 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "plant_type")
-public class PlantTypeEntity {
+@Table(name = "reminder")
+public class ReminderScheduler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String image;
-    @Column(length = 1000)
-    private String description;
+    private String work;
+    private int frequency;
+    private String specificDate;
+    private Long hour;
+    private Long timeStart;
+    private String note;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "plantType")
-    private List<PlantEntity> plants;
-
-    @OneToMany(mappedBy = "plantType")
-    private List<InstructionCareEntity> instructionCares;
+    @ManyToOne(targetEntity = SchedulerEntity.class)
+    @JoinColumn(name = "scheduler_id")
+    private SchedulerEntity scheduler;
 }
