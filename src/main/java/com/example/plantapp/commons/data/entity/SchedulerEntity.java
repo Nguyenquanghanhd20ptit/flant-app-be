@@ -18,7 +18,7 @@ public class SchedulerEntity {
     private Integer id;
 
     @ManyToOne(targetEntity = PlantEntity.class)
-    @JoinColumn(name = "plant")
+    @JoinColumn(name = "plant_id")
     private PlantEntity plant;
 
     @OneToMany(mappedBy = "scheduler")

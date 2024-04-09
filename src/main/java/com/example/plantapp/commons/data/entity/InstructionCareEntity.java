@@ -17,7 +17,7 @@ public class InstructionCareEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(targetEntity = PlantTypeEntity.class)
+    @ManyToOne(targetEntity = PlantEntity.class)
     @JoinColumn(name = "plant_id")
     private PlantEntity plant;
 

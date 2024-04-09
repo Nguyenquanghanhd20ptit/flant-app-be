@@ -41,4 +41,7 @@ public class PlantEntity {
     @OneToMany(mappedBy = "plant")
     private List<UserPlantEntity> userPlants;
 
+    @OneToMany(mappedBy = "plant")
+    private List<InstructionCareEntity> instructionCares;
+
 }
