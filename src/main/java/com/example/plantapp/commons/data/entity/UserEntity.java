@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Accessors(chain = true)
@@ -22,4 +23,6 @@ public class UserEntity {
     private String phoneNumber;
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "user")
+    private List<UserPlantEntity> plants;
 }

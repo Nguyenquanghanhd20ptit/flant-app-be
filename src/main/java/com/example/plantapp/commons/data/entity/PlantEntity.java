@@ -39,6 +39,6 @@ public class PlantEntity {
     private PlantTypeEntity plantType;
 
     @OneToMany(mappedBy = "plant")
-    private List<PlantNoteEntity> plantNotEntities;
+    private List<UserPlantEntity> userPlants;
 
 }

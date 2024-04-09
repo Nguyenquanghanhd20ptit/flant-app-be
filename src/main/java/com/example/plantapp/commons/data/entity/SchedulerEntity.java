@@ -18,8 +18,8 @@ public class SchedulerEntity {
     private Integer id;
 
     @ManyToOne(targetEntity = PlantEntity.class)
-    @JoinColumn(name = "plant_type_id")
-    private PlantTypeEntity plantType;
+    @JoinColumn(name = "plant")
+    private PlantEntity plant;
 
     @OneToMany(mappedBy = "scheduler")
     private List<ReminderScheduler> reminders;

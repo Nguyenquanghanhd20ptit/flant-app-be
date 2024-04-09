@@ -18,8 +18,8 @@ public class InstructionCareEntity {
     private Integer id;
 
     @ManyToOne(targetEntity = PlantTypeEntity.class)
-    @JoinColumn(name = "plant_type_id")
-    private PlantTypeEntity plantType;
+    @JoinColumn(name = "plant_id")
+    private PlantEntity plant;
 
     @ManyToOne(targetEntity = CareTypeEntity.class)
     @JoinColumn(name = "care_type_id")
