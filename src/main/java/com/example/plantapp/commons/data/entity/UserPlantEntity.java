@@ -11,24 +11,25 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "instruction_care")
-public class InstructionCareEntity {
+@Table(name = "user_plant")
+public class UserPlantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
+    private String img_url;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @ManyToOne(targetEntity = PlantEntity.class)
     @JoinColumn(name = "plant_id")
     private PlantEntity plant;
 
-    @ManyToOne(targetEntity = CareTypeEntity.class)
-    @JoinColumn(name = "care_type_id")
-    private CareTypeEntity careType;
-
-    @OneToMany(mappedBy = "instructionCare")
-    private List<InstructionCareWorkEntity> instructionCareWorks;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
+    @OneToMany(mappedBy = "userPlant")
+    private List<PlantNoteEntity> notes;
 
 }
