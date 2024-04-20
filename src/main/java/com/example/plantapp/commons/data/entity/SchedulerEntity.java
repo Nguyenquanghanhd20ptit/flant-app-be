@@ -20,9 +20,11 @@ public class SchedulerEntity {
     @ManyToOne(targetEntity = PlantEntity.class)
     @JoinColumn(name = "plant_id")
     private PlantEntity plant;
-
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "created_by")
+    private UserEntity created_by;
     @OneToMany(mappedBy = "scheduler")
-    private List<ReminderScheduler> reminders;
+    private List<ReminderEntity> reminders;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

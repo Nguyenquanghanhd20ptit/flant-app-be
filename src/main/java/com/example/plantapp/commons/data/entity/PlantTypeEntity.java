@@ -17,7 +17,7 @@ public class PlantTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String image;
+    private String image_url;
     @Column(length = 1000)
     private String description;
     @CreationTimestamp

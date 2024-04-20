@@ -23,6 +23,8 @@ public class UserEntity {
     private String phoneNumber;
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "created_by")
+    private List<SchedulerEntity> schedulers;
     @OneToMany(mappedBy = "user")
     private List<UserPlantEntity> plants;
 }

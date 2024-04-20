@@ -38,6 +38,10 @@ public class PlantEntity {
     @JoinColumn(name = "plant_type_id")
     private PlantTypeEntity plantType;
 
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "created_by")
+    private PlantTypeEntity createdBy;
+
     @OneToMany(mappedBy = "plant")
     private List<UserPlantEntity> userPlants;
 

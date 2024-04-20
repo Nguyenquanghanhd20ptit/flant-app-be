@@ -20,6 +20,7 @@ public class PlantNoteEntity {
     private double height;
     private Integer quantityFlower;
     private String imageUrl;
+    private Long columnTime;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
