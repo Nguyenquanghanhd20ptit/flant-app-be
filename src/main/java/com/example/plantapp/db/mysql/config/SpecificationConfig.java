@@ -211,6 +211,7 @@ public class SpecificationConfig {
             if (Double.class.isAssignableFrom(classValue)) return Double.valueOf(value.toString());
             return gson.fromJson(gson.toJsonTree(value), classValue);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

@@ -21,11 +21,15 @@ public class PlantNoteEntity {
     private Integer quantityFlower;
     private String imageUrl;
     private Long columnTime;
-
+    private String unit;
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne(targetEntity = UserPlantEntity.class)
     @JoinColumn(name = "user_plant_id")
     private UserPlantEntity userPlant;
+
+    @ManyToOne(targetEntity = PlantEntity.class)
+    @JoinColumn(name = "plant_id")
+    private PlantEntity plant;
 }
