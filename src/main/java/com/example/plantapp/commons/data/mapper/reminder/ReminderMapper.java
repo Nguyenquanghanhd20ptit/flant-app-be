@@ -9,6 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -25,10 +26,12 @@ public abstract class ReminderMapper {
     }
 
     private String genPeriod(Long hour) {
-        if(hour < localTimeToLong( LocalTime.of(12,0,0))){
+        LocalDateTime localDateTime = longToLocalDateTime(hour);
+        Long hourOfDay = localTimeToLong( LocalTime.of(localDateTime.getHour(),localDateTime.getMinute(),localDateTime.getSecond()));
+        if(hourOfDay < localTimeToLong( LocalTime.of(12,0,0))){
             return MORNING.getPeriod();
         }
-        else if(hour < localTimeToLong(LocalTime.of(18,0,0))){
+        else if(hourOfDay < localTimeToLong(LocalTime.of(18,0,0))){
             return AFTERNOON.getPeriod();
         }
         else{
@@ -36,18 +39,6 @@ public abstract class ReminderMapper {
         }
     }
 
-    @Mapping(target = "specificDate",ignore = true)
-    @Mapping(target = "hour",ignore = true)
-    @Mapping(target = "timeStart",ignore = true)
     public abstract ReminderResponse toResponse(ReminderEntity reminder);
-
-    @AfterMapping
-    public void map(@MappingTarget ReminderResponse response, ReminderEntity reminder){
-        if(reminder.getSpecificDate() != null){
-            response.setSpecificDate(longToLocalDateTime(reminder.getSpecificDate()));
-        }
-        response.setTimeStart(longToLocalDateTime(reminder.getTimeStart()));
-        response.setHour(localTimeToLocalDateTime(longToLocalTime( reminder.getHour())));
-    }
     public abstract List<ReminderResponse> toResponses(List<ReminderEntity> reminders);
 }

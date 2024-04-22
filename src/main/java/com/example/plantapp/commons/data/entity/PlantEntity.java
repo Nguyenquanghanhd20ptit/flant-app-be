@@ -19,7 +19,7 @@ public class PlantEntity {
     private String name;
     @Column(length = 1020)
     private String description;
-    private String image_url;
+    private String imageUrl;
     private String origin;
     private String guide;
     private String water;
@@ -27,10 +27,9 @@ public class PlantEntity {
     private String light;
     private String soil;
     private String tempAndHumidity;
-    private String pruning_month;
-    private String grow_level;
+    private String pruningMonth;
+    private String growLevel;
     private String cycle;
-    private String care_level;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

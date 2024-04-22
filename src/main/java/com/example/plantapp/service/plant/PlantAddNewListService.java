@@ -12,38 +12,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.plantapp.commons.data.constant.ErrorCodeConstant.ERROR_CODE_NOT_INFORMATION;
-
 @Service
-public class PlantAddNewService extends BaseService {
+public class PlantAddNewListService extends BaseService {
     @Autowired
     private IPlantRepository plantRepository;
     @Autowired
     private IPlantTypeRepository plantTypeRepository;
     @Autowired
     private PlantMapper plantMapper;
-    public ResponseEntity<String> addPlant(PlantRequest plantRequest){
+    public ResponseEntity<String> addPlants(List<PlantRequest> plantRequest){
 
-       try {
-           if(!validateReq()){
-               createResponseErrorValidate();
-           }
-           Optional<PlantTypeEntity> opt = plantTypeRepository.findById(plantRequest.getPlantTypeId());
-           if(!opt.isPresent()){
-               return createResponseError(ERROR_CODE_NOT_INFORMATION,"PlantTypeId không tồn tại");
-           }
-           PlantEntity plantEntity = plantMapper.toEntity(plantRequest);
-           plantEntity.setPlantType(new PlantTypeEntity().setId(plantRequest.getPlantTypeId()));
-           PlantEntity plantReturn = plantRepository.save(plantEntity);
-           if(ObjectUtils.isEmpty(plantReturn)){
-               return createResponseErrorDuringProcess();
-           }
-           return createResponseSuccess(gson.toJson("Thêm mới cây thành công"));
+        try {
+            if(!validateReq()){
+                createResponseErrorValidate();
+            }
+            List<PlantEntity> plantEntities = plantMapper.toEntities(plantRequest);
+            List<PlantEntity> plantReturns = plantRepository.saveAll(plantEntities);
+            if(ObjectUtils.isEmpty(plantReturns)){
+                return createResponseErrorDuringProcess();
+            }
+            return createResponseSuccess(gson.toJson("Thêm  mới cây thành công"));
         }catch (Exception e){
-           return createResponseException(e);
-       }
+            return createResponseException(e);
+        }
     }
 
     private boolean validateReq() {

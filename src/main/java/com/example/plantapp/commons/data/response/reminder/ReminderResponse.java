@@ -11,9 +11,9 @@ public class ReminderResponse {
     private Integer id;
     private String work;
     private Integer frequency;
-    private LocalDateTime specificDate;
-    private LocalDateTime hour;
-    private LocalDateTime timeStart;
+    private Long specificDate;
+    private Long hour;
+    private Long timeStart;
     private String period;
     private String note;
     private LocalDateTime createdAt;

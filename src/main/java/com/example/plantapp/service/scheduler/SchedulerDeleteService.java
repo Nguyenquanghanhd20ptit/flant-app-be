@@ -7,6 +7,7 @@ import com.example.plantapp.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class SchedulerDeleteService  extends BaseService {
     private ISchedulerRepository schedulerRepository;
     @Autowired
     private IReminderRepository reminderRepository;
+
+    @Transactional
     public ResponseEntity<String> deleteById(Integer schedulerId){
         try {
             Optional<SchedulerEntity> optional = schedulerRepository.findById(schedulerId);
@@ -27,8 +30,9 @@ public class SchedulerDeleteService  extends BaseService {
             SchedulerEntity scheduler = optional.get();
             reminderRepository.deleteBySchedulerId(scheduler.getId());
             schedulerRepository.deleteById(scheduler.getId());
-            return createResponseSuccess("Xóa lịch trình thành công");
+            return createResponseSuccess(gson.toJson("Xóa lịch trình thành công"));
         }catch (Exception e){
+            e.printStackTrace();
             return createResponseException(e);
         }
 

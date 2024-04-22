@@ -22,7 +22,7 @@ public class SchedulerEntity {
     private PlantEntity plant;
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "created_by")
-    private UserEntity created_by;
+    private UserEntity createdBy;
     @OneToMany(mappedBy = "scheduler")
     private List<ReminderEntity> reminders;
     @CreationTimestamp

@@ -28,7 +28,7 @@ public class PlantTypeAddNewService extends BaseService {
             if(ObjectUtils.isEmpty(plantTypeReturn)){
                 return createResponseErrorDuringProcess();
             }
-            return createResponseSuccess("Thêm mới thành công");
+            return createResponseSuccess( gson.toJson("Thêm mới thành công"));
         }catch (Exception e){
             return createResponseException(e);
         }

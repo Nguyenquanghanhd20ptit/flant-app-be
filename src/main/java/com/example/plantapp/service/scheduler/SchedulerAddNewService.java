@@ -45,14 +45,19 @@ public class SchedulerAddNewService extends BaseService {
             if(!optUser.isPresent()){
                 return createResponseError(ERROR_CODE_NOT_INFORMATION,"User không tồn tại");
             }
+            Optional<SchedulerEntity> optScheduler = schedulerRepository.findByPlantAndUser(request.getPlantId(),
+                    request.getCreatedBy());
+            if(optScheduler.isPresent()){
+                return createResponseSuccess(gson.toJson("Đã có sẵn lịch trình"));
+            }
             SchedulerEntity scheduler = new SchedulerEntity()
                     .setPlant(new PlantEntity().setId(request.getPlantId()))
-                    .setCreated_by(new UserEntity().setId(request.getCreatedBy()));
+                    .setCreatedBy(new UserEntity().setId(request.getCreatedBy()));
             SchedulerEntity schedulerReturn = schedulerRepository.save(scheduler);
             if(ObjectUtils.isEmpty(schedulerReturn)){
                 return createResponseErrorDuringProcess();
             }
-            return createResponseSuccess("Thêm lịch trình thành công");
+            return createResponseSuccess(gson.toJson("Thêm lịch trình thành công"));
         }catch (Exception e){
             return createResponseException(e);
         }

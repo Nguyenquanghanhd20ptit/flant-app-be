@@ -12,10 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
 import static com.example.plantapp.commons.data.constant.ErrorCodeConstant.ERROR_CODE_NOT_INFORMATION;
+import static com.example.plantapp.utils.DateUtils.localDateTimeToLong;
 import static com.example.plantapp.utils.DateUtils.localTimeToLong;
 
 @Service
@@ -40,7 +42,7 @@ public class ReminderAddNewService extends BaseService {
         if(ObjectUtils.isEmpty(reminderReturn)){
             return createResponseErrorDuringProcess();
         }
-        return createResponseSuccess("Thêm lời nhắc thành công");
+        return createResponseSuccess(gson.toJson("Thêm lời nhắc thành công"));
     }
 
     private boolean validateReq(ReminderRequest request) {
@@ -53,15 +55,11 @@ public class ReminderAddNewService extends BaseService {
             invalidMessage = "Lời nhắc thực hiện hàng ngày không hợp lệ";
             return false;
         }
-        if(request.getSpecificDate() != null && request.getSpecificDate() < localTimeToLong(LocalTime.now()) ){
+        if(request.getSpecificDate() != null && request.getSpecificDate() < localDateTimeToLong(LocalDateTime.now()) ){
             invalidMessage = "Lời nhắc thực hiện ngày cụ thể không hợp lệ";
             return false;
         }
-        if(request.getHour() < 0 || request.getHour() > localTimeToLong(LocalTime.of(24,0,0))){
-            invalidMessage = "Giờ thực hiện không hợp lệ";
-            return false;
-        }
-        if(request.getTimeStart() < localTimeToLong(LocalTime.now())){
+        if(request.getTimeStart() < localDateTimeToLong(LocalDateTime.now())){
             invalidMessage = "Thời gian bắt đầu không hợp lệ";
             return false;
         }

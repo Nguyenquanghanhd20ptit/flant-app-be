@@ -17,7 +17,7 @@ public class UserPlantEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String img_url;
+    private String imgUrl;
     @CreationTimestamp
     private LocalDateTime createdAt;
 

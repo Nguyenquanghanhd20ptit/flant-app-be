@@ -11,6 +11,6 @@ import javax.validation.constraints.NotBlank;
 public class PlantTypeRequest {
     @NotBlank(message = "Tên loại cây không được để chống")
     private String name;
-    private String image_url;
+    private String imageUrl;
     private String description;
 }

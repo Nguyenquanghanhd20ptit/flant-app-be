@@ -22,7 +22,7 @@ public class ReminderDeleteService extends BaseService {
                 return createResponseError(ERROR_CODE_NOT_INFORMATION,"Thông tin lời nhắc không hợp lệ");
             }
             reminderRepository.deleteById(reminderId);
-            return createResponseSuccess("Xóa lời nhắc thành công");
+            return createResponseSuccess(gson.toJson("Xóa lời nhắc thành công"));
         }catch (Exception e){
             return createResponseException(e);
         }

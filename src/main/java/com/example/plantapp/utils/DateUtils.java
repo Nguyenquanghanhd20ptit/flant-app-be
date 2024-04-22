@@ -27,10 +27,9 @@ public class DateUtils {
     public static LocalDate longToLocalDate(Long time) {
         return Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate();
     }
-
     public static Long localTimeToLong(LocalTime localTime) {
         return localTime == null ? null :
-                localTime.getLong(INSTANT_SECONDS) * 1000;
+                (long) localTime.toSecondOfDay() * 1000;
     }
     public static LocalTime longToLocalTime(Long localTime) {
         return Instant.ofEpochMilli(localTime).atZone(ZoneId.systemDefault()).toLocalTime();

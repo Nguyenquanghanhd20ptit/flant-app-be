@@ -21,8 +21,8 @@ public class GlobalExceptionHandler {
         String message = exception.getBindingResult().getFieldError().getDefaultMessage();
         message = StringUtils.isEmpty(message) ? ERROR_MESSAGE_DURING_PROCESS : message;
         DataResponse dataResponse = new DataResponse()
-                .setErrorCode(message)
-                .setErrorMessage(ERROR_CODE_DURING_PROCESS);
+                .setErrorCode(ERROR_CODE_DURING_PROCESS)
+                .setErrorMessage(message);
         return new ResponseEntity<>(gson.toJson(dataResponse), HttpStatus.OK);
     }
 }

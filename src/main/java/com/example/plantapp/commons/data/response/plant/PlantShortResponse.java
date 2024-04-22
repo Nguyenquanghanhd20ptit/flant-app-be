@@ -11,7 +11,7 @@ public class PlantShortResponse {
     private Integer id;
     private String name;
     private String description;
-    private String image_url;
+    private String imageUrl;
     private String origin;
     private LocalDateTime createdAt;
 }

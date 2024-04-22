@@ -1,10 +1,7 @@
 package com.example.plantapp.rest.controller.scheduler;
 
 import com.example.plantapp.commons.data.request.scheduler.SchedulerRequest;
-import com.example.plantapp.service.scheduler.SchedulerAllService;
-import com.example.plantapp.service.scheduler.SchedulerAddNewService;
-import com.example.plantapp.service.scheduler.SchedulerDeleteService;
-import com.example.plantapp.service.scheduler.SchedulerDetailService;
+import com.example.plantapp.service.scheduler.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +35,7 @@ public class SchedulerController {
 
     @Autowired
     private SchedulerAllService schedulerAllService;
-    @PostMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all")
     @Operation(summary = "lấy danh sách tất cả lịch trình")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),
@@ -50,7 +47,7 @@ public class SchedulerController {
 
     @Autowired
     private SchedulerDetailService schedulerDetailService;
-    @PostMapping(value = "/detail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/detail/{id}")
     @Operation(summary = "lấy chi tiết lịch trình")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),
@@ -61,8 +58,22 @@ public class SchedulerController {
     }
 
     @Autowired
+    private SchedulerPlantUserService schedulerPlantUserService;
+    @PostMapping(value = "/plant-user", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "lấy chi tiết lịch trình theo use and plant")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")})
+    public ResponseEntity<String> getDetail(@RequestBody SchedulerRequest request){
+       if(ObjectUtils.isEmpty(request)){
+           return ResponseEntity.badRequest().build();
+       }
+       return schedulerPlantUserService.findByPlantAndUser(request.getPlantId(),request.getCreatedBy());
+    }
+    @Autowired
     private SchedulerDeleteService schedulerDeleteService;
-    @PostMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "xóa một lịch trình")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),

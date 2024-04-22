@@ -37,15 +37,14 @@ public class PlantEntityParser {
                 .setId(id)
                 .setName(name)
                 .setDescription(description)
-                .setImage_url(imageUrl)
+                .setImageUrl(imageUrl)
                 .setOrigin(origin)
                 .setGuide(guide)
                 .setWater(water)
                 .setLight(light)
-                .setPruning_month(pruningMonth)
-                .setGrow_level(growLevel)
+                .setPruningMonth(pruningMonth)
+                .setGrowLevel(growLevel)
                 .setCycle(cycle)
-                .setCare_level(careLevel)
                 .setCreatedAt(LocalDateTime.now());
 
         // Add PlantEntity to the list
