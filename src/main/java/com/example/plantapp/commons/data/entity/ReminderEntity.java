@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Accessors(chain = true)
@@ -27,4 +28,7 @@ public class ReminderEntity {
     @ManyToOne(targetEntity = SchedulerEntity.class)
     @JoinColumn(name = "scheduler_id")
     private SchedulerEntity scheduler;
+
+    @OneToMany(mappedBy = "reminder")
+    private List<ReminderTimeEntity> reminderTimes;
 }
